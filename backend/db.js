@@ -7,6 +7,7 @@ mongoose.connect(mongoURL)
     .then(()=> console.log("Database connected"))
     .catch((err)=> console.log(err))
 
+
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
