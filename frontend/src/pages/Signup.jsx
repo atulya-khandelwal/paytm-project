@@ -5,12 +5,14 @@ import InputBox from '../components/InputBox'
 import Button from '../components/Button'
 import BottomWarning from '../components/BottomWarning'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Signup() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
   return (
     <div className='bg-slate-300 h-screen flex justify-center'>
         <div className='flex flex-col justify-center'>
@@ -31,13 +33,17 @@ function Signup() {
                 }}/>
                 <div className="pt-4">
                     <Button label={"Sign up"} onClick={async()=>{
-                            await axios.post("http://localhost:3000/api/v1/user/signup", {
+                            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
                                 username: username,
                                 firstname: firstName,
                                 lastname: lastName,
                                 password: password
                             })
+                            localStorage.setItem("token",response.data.token);
+                            navigate("/dashboard")
+                            
                     }}/>
+
                 </div>
                 <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
             </div>
