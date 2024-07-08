@@ -17,26 +17,23 @@ const signupBody = zod.object({
 
 router.post('/signup', async(req,res)=>{
     
-    const {success} = signupBody.safeParse(req.body)
-    
+    const { success } = signupBody.safeParse(req.body);
     if(!success){ 
         return res.status(400).json({
-            message: "Incorrect Inputs"
+            message: "Incorrect Inputs",
         })
     }
-    console.log("requested body",req.body)
-
 
     const existingUser = await User.findOne({
         username: req.body.username
     })
-    console.log("Existing user after find function: ",existingUser);
 
     if(existingUser){
         return res.status(400).json({
             message: "Email already taken"
         })
     }
+
     const plainTextPassword = req.body.password;
     async function hashPassword(plainTextPassword){
         const saltRounds = 10;
@@ -58,8 +55,6 @@ router.post('/signup', async(req,res)=>{
         lastname: req.body.lastname,
         password: hashedPassword
     })
-
-console.log(process.env.SECRET)
 
     const userId = user._id
     const account = await Account.create({

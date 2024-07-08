@@ -31,12 +31,12 @@ function Signup() {
                 }}/>
                 <div className="pt-4">
                     <Button label={"Sign up"} onClick={async()=>{
-                        await axios.post("http://localhost:3000/api/v1/user/signup", {
-                            username: username,
-                            firstname: firstName,
-                            lastname: lastName,
-                            password: password
-                        })
+                            await axios.post("http://localhost:3000/api/v1/user/signup", {
+                                username: username,
+                                firstname: firstName,
+                                lastname: lastName,
+                                password: password
+                            })
                     }}/>
                 </div>
                 <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
